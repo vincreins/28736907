@@ -22,3 +22,49 @@ list.files('code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.
 ```
 
 
+
+```{r}
+
+Texevier::create_template(directory = glue::glue("/Users/vr/Documents/Uni/VWL/Stellenbosch/DataScience/Exam"), template_name = "Question1")
+Texevier::create_template(directory = glue::glue("/Users/vr/Documents/Uni/VWL/Stellenbosch/DataScience/Exam"), template_name = "Question2")
+Texevier::create_template(directory = glue::glue("/Users/vr/Documents/Uni/VWL/Stellenbosch/DataScience/Exam"), template_name = "Question3")
+Texevier::create_template(directory = glue::glue("/Users/vr/Documents/Uni/VWL/Stellenbosch/DataScience/Exam"), template_name = "Question4")
+Texevier::create_template(directory = glue::glue("/Users/vr/Documents/Uni/VWL/Stellenbosch/DataScience/Exam"), template_name = "Question5")
+```
+
+Question 1:
+
+Babynames
+
+load data
+```{r}
+baby_names <- readRDS("Question1/data/US_Baby_names/Baby_Names_By_US_State.rds")
+charts <- readRDS("Question1/data/US_Baby_names/HBO_titles.rds")
+HBO_Titles <- readRDS("Question1/data/US_Baby_names/HBO_titles.rds")
+HBO_Credits <- readRDS("Question1/data/US_Baby_names/HBO_credits.rds")
+```
+
+
+Rank correlation spearman
+
+```{r}
+filtered_names <- baby_names %>% group_by(Year, Gender, Name) %>% 
+    summarize(Count = sum(Count)) %>% 
+    ungroup
+
+top_names_year <- filtered_names %>% group_by(Year, Gender) %>% 
+    top_n(25, Count) %>% arrange(Year, Gender, -Count)
+```
+
+
+
+
+
+
+
+
+
+
+
+
+
