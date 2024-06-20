@@ -66,6 +66,7 @@
 \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 
 %%%%  Remove the "preprint submitted to" part. Don't worry about this either, it just looks better without it:
+\journal{Journal of Finance}
 
  \def\tightlist{} % This allows for subbullets!
 
@@ -156,7 +157,7 @@
 
 \begin{frontmatter}  %
 
-\title{Question 2}
+\title{Question 3}
 
 % Set to FALSE if wanting to remove title (for submission)
 
@@ -180,13 +181,10 @@
 
 \begin{abstract}
 \small{
-The music industry has experienced profound changes over the last two
-decades with the emergence of music streaming services, fundamentally
-altering its business landscape. This study investigates the impact of
-these transformations on renowned bands such as Metallica and Coldplay.
-Utilizing a Spotify dataset, I analyze their song metrics and compare
-their performance dynamics with those of other artists, aiming to
-discern trends and adaptations amidst this evolving industry landscape.
+In this project, I will conduct a comprehensive analysis to evaluate the
+extent of support extended by various countries to Ukraine.
+Specifically, I will explore how countries' donation behaviors diverge
+depending on their membership status within the European Union (EU).
 }
 \end{abstract}
 
@@ -229,72 +227,73 @@ discern trends and adaptations amidst this evolving industry landscape.
 \section{\texorpdfstring{Introduction
 \label{Introduction}}{Introduction }}\label{introduction}}
 
-The music industry has undergone significant transformations over the
-past two decades since the advent of music streaming services, reshaping
-its entire business model. To examine whether these changes have
-impacted established bands like Metallica and Coldplay, I will analyze
-their songs in relation to a Spotify dataset and compare their
-performance with that of other artists.
+To start, I will perform two regression analyses: one on allocation and
+another on commitment, aiming to explore how these variables are
+influenced by a country's EU membership status.
 
-While the dataset primarily comprises song data, one hypothesis to
-explore is the perfect correlation between a song's success and the
-album's popularity. If validated, focusing on album-level analysis could
-greatly streamline data processing. The following box plot illustrates
-the popularity distribution of songs per album.
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = alloc$Total.bilateral.allocations...billion. ~ alloc$EU.member)
+## 
+## Residuals:
+##    Min     1Q Median     3Q    Max 
+## -6.939 -3.672 -2.865 -1.023 64.918 
+## 
+## Coefficients:
+##                 Estimate Std. Error t value Pr(>|t|)  
+## (Intercept)        6.941      3.432   2.023   0.0502 .
+## alloc$EU.member   -3.655      4.177  -0.875   0.3870  
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 12.37 on 38 degrees of freedom
+##   (1 observation deleted due to missingness)
+## Multiple R-squared:  0.01976,    Adjusted R-squared:  -0.006041 
+## F-statistic: 0.7658 on 1 and 38 DF,  p-value: 0.387
+\end{verbatim}
+
+\begin{verbatim}
+## 
+## Call:
+## lm(formula = commit$Total.bilateral.commitments...billion. ~ 
+##     commit$EU.member)
+## 
+## Residuals:
+##     Min      1Q  Median      3Q     Max 
+## -13.771  -5.472  -2.428  -0.461  71.367 
+## 
+## Coefficients:
+##                  Estimate Std. Error t value Pr(>|t|)   
+## (Intercept)        13.774      4.331   3.180  0.00284 **
+## commit$EU.member  -11.143      5.402  -2.063  0.04568 * 
+## ---
+## Signif. codes:  0 '***' 0.001 '**' 0.01 '*' 0.05 '.' 0.1 ' ' 1
+## 
+## Residual standard error: 16.78 on 40 degrees of freedom
+## Multiple R-squared:  0.09614,    Adjusted R-squared:  0.07354 
+## F-statistic: 4.254 on 1 and 40 DF,  p-value: 0.04568
+\end{verbatim}
+
+The regression results indicate a significant decrease in both allocated
+and committed amounts when a country is an EU member. To explore
+potential reasons for this finding, the next step involves plotting data
+for the top donors.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{Question2_files/figure-latex/Figure 1-1} 
+{\centering \includegraphics{Question3_files/figure-latex/Figure 1-1} 
 
 }
 
-\caption{Box Plot Popularity per Album \label{Figure1}}\label{fig:Figure 1}
+\caption{Largest contributors \label{Figure1}}\label{fig:Figure 1}
 \end{figure}
 
-The popularity of songs per album shows considerable variability,
-indicating that analyzing at the album level may not yield conclusive
-insights.
-
-Both bands have extensive histories, but it's intriguing to assess their
-current activity. The following plot illustrates the number of song
-releases per band over time.
-
-\begin{figure}[H]
-
-{\centering \includegraphics{Question2_files/figure-latex/Figure 2-1} 
-
-}
-
-\caption{Releases over Time \label{Figure1}}\label{fig:Figure 2}
-\end{figure}
-
-The plot highlights two key observations. Firstly, Metallica's data is
-missing pre-2000, limiting comparisons to the period post-2000.
-Secondly, it reveals that since 2000, Coldplay has consistently released
-songs more regularly than Metallica.
-
-In recent years, a hypothesis has emerged that songs have become shorter
-for two reasons. Firstly, algorithms purportedly favor shorter songs,
-and secondly, the rise of social media values brief, impactful segments
-for video content. To test this theory and its applicability to Coldplay
-and Metallica, I will plot the song durations below.
-
-\begin{figure}[H]
-
-{\centering \includegraphics{Question2_files/figure-latex/Figure 3-1} 
-
-}
-
-\caption{Song Duration over Time \label{Figure1}}\label{fig:Figure 3}
-\end{figure}
-
-It is evident that since the 1990s, there has been a noticeable downward
-trend in the average song length across all Spotify songs. Although the
-sample size is limited, Metallica shows a slight decreasing trend in
-song duration. Conversely, Coldplay exhibits a clear upward trend in
-song duration over the same period.
-
-\newpage
+The analysis reveals that the largest contributors by far are the USA
+and UK, both of which are non-EU members. This contrasts with the EU,
+which comprises many smaller countries, each unable to contribute
+substantial amounts individually. Consequently, being part of the EU
+appears to decrease the total amount given to Ukraine.
 
 \bibliography{Tex/ref}
 

@@ -67,7 +67,7 @@ csl: Tex/harvard-stellenbosch-university.csl # referencing format used.
 
 # ---------- General:
 RemovePreprintSubmittedTo: FALSE  # Removes the 'preprint submitted to...' at bottom of titlepage
-Journal: "Journal of Finance"   # Journal that the paper will be submitting to, if RemovePreprintSubmittedTo is set to TRUE.
+Journal: ""   # Journal that the paper will be submitting to, if RemovePreprintSubmittedTo is set to TRUE.
 toc: FALSE                       # Add a table of contents
 numbersections: TRUE             # Should sections (and thus figures and tables) be numbered?
 fontsize: 11pt                  # Set fontsize
@@ -85,7 +85,7 @@ output:
     fig_width: 3.5 # Adjust default figure sizes. This can also be done in the chunks of the text.
     fig_height: 3.5
 abstract: |
-  I will analyze longevity and music progression
+  The music industry has experienced profound changes over the last two decades with the emergence of music streaming services, fundamentally altering its business landscape. This study investigates the impact of these transformations on renowned bands such as Metallica and Coldplay. Utilizing a Spotify dataset, I analyze their song metrics and compare their performance dynamics with those of other artists, aiming to discern trends and adaptations amidst this evolving industry landscape.
 ---
 
 <!-- First: Set your default preferences for chunk options: -->
@@ -112,10 +112,11 @@ spotify_info <- readRDS("data/Coldplay_vs_Metallica/Broader_Spotify_Info.rds")
 
 # Introduction \label{Introduction}
 
-The music industry is in big change. The last twenty years since the first appearances of music streaming services, the whole business model has been under change. TO investigate how or if the change als influenced established bands who are already popular, I will investigate songs of Metallica and Coldplay and set them into relation with a Spotify dataset to compare the songs to other aritsts.
+
+The music industry has undergone significant transformations over the past two decades since the advent of music streaming services, reshaping its entire business model. To examine whether these changes have impacted established bands like Metallica and Coldplay, I will analyze their songs in relation to a Spotify dataset and compare their performance with that of other artists.
 <!-- The following is a code chunk. It must have its own unique name (after the r), or no name. After the comma follows commands for R which are self-explanatory. By default, the code and messages will not be printed in your pdf, just the output: -->
 
-Although the data set contains song data, a hypothesis which could be setup is that the success of a song is perfectly correlated to the Albums popularity. If this was the case, further analyiss could be broken down to album level which would simplify the data work significantly. The following plot thus shows a box plot of the popularity of songs per album.
+While the dataset primarily comprises song data, one hypothesis to explore is the perfect correlation between a song's success and the album's popularity. If validated, focusing on album-level analysis could greatly streamline data processing. The following box plot illustrates the popularity distribution of songs per album.
 
 ```{r Popularity by album,  warning =  FALSE, fig.align = 'center', fig.cap = "Caption Here \\label{Figure1}", fig.ext = 'png', fig.height = 3, fig.width = 6}
 
@@ -128,30 +129,27 @@ metallica_studio <- studio_recording(metallica)
 coldplay_live <- live_recording(coldplay)
 metallica_live <- live_recording(metallica)
 
-ggplot(coldplay_cleaned, aes(x = album, y = popularity)) +
-    geom_boxplot() 
-
 ```
-We can see that the popularity of sings per album is rather spread. Analysis on album level is therefroe not advisable.
 
-While both bars have a long history, it is interesting if they are still active today. The next plot shows the song releases per band over time
+```{r Figure 1,  warning =  FALSE, fig.align = 'center', fig.cap = "Box Plot Popularity per Album \\label{Figure1}", fig.ext = 'png', fig.height = 4.5, fig.width = 6, dpi=300}
 
-
-```{r Figure2, warning =  FALSE, fig.align = 'center', fig.cap = "Caption Here \\label{Figure2}", fig.height = 3, fig.width = 6, dev = 'png'}
-
-library(ggplot2)
-coldplay_cleaned$identifier <- "Coldplay"
-metallica_cleaned$identifier <- "Metallica"
-merged <- bind_rows(coldplay_cleaned,metallica_cleaned)
-releases <- merged %>% group_by(release_date, identifier) %>% summarise(num_releases = n())
-ggplot(releases, aes(x = as.Date((release_date), "%Y"), y = num_releases, group = identifier, color = identifier)) +
-  geom_line(size = 1) +
-  labs(x = "Release Date", y = "Title", title = "Releases Over Time") +
-  theme_minimal()
+plot_popularity_distribution(coldplay_cleaned)
 
 ```
 
-The plot shows two things. The first and most important one is that metallica misses pre 2000 data. The comparison can therefore only be done post 2000. We can see that Coldplay released songs on a more regular basis since 2000 than Metallica
+The popularity of songs per album shows considerable variability, indicating that analyzing at the album level may not yield conclusive insights.
+
+Both bands have extensive histories, but it's intriguing to assess their current activity. The following plot illustrates the number of song releases per band over time.
+
+```{r Figure 2,  warning =  FALSE, fig.align = 'center', fig.cap = "Releases over Time \\label{Figure1}", fig.ext = 'png', fig.height = 3, fig.width = 6, dpi=300}
+
+releases <- calculate_num_releases(coldplay_cleaned, metallica_cleaned)
+
+plot_releases_over_time(releases)
+
+```
+
+The plot highlights two key observations. Firstly, Metallica's data is missing pre-2000, limiting comparisons to the period post-2000. Secondly, it reveals that since 2000, Coldplay has consistently released songs more regularly than Metallica.
 
 
 <!-- :::::: {.columns data-latex="[T]"} -->
@@ -179,32 +177,19 @@ The plot shows two things. The first and most important one is that metallica mi
 
 
 
-#  Change of song duration \label{Meth}
 
-In recent years the hypothesis was set up that songs becam shorter over time for two reaosns. The first one to be preferred by different algorithms which are apparently supposed to prefer short songs and the other reason is the rise of social media, where long songs are not important either but only a few good seconds are important to put them under a video. TO test if that is true and also if this applies to Coldplay and Metallica this will be plotted below.
 
-```{r Figure3, warning =  FALSE, fig.align = 'center', fig.cap = "Caption Here \\label{Figure3}", fig.height = 3, fig.width = 6, dev = 'png'}
-plot_song_durations(charts, spotify_info, coldplay_cleaned, metallica_cleaned)
+In recent years, a hypothesis has emerged that songs have become shorter for two reasons. Firstly, algorithms purportedly favor shorter songs, and secondly, the rise of social media values brief, impactful segments for video content. To test this theory and its applicability to Coldplay and Metallica, I will plot the song durations below.
+
+```{r Figure 3,  warning =  FALSE, fig.align = 'center', fig.cap = "Song Duration over Time \\label{Figure1}", fig.ext = 'png', fig.height = 3, fig.width = 6, dpi=300}
+create_charts_data(charts, spotify_info)
+plot_duration_over_time(charts_spotify, coldplay_cleaned, metallica_cleaned)
 
 ```
 
-We can see that since the 1990s across all spotify songs there is a clear downwards trend for the average song length, although the sample size is small, metallica seems to have a slightly decreasing trend too. Coldplay on the other hand has a clear upwards trend for the song duration
+It is evident that since the 1990s, there has been a noticeable downward trend in the average song length across all Spotify songs. Although the sample size is limited, Metallica shows a slight decreasing trend in song duration. Conversely, Coldplay exhibits a clear upward trend in song duration over the same period.
 
 <!-- Make title of bibliography here: -->
 <!-- \newpage -->
 
 \newpage
-
-# References {-}
-
-<div id="refs"></div>
-
-
-# Appendix {-}
-
-## Appendix A {-}
-
-Some appendix information here
-
-## Appendix B {-}
-

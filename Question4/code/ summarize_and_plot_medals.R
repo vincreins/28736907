@@ -9,7 +9,7 @@ summarize_and_plot_medals <- function(gdp_medals, gdp_cap_filter = 6000) {
     total_medals <- emerging_medals %>%
         group_by(Country) %>%
         summarise(Medals = sum(n))
-s
+
 
     p <- total_medals %>%
         ggplot(aes(x = reorder(Country, -Medals), y = Medals, fill = Country == "IND")) +

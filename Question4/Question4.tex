@@ -66,6 +66,7 @@
 \newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
 
 %%%%  Remove the "preprint submitted to" part. Don't worry about this either, it just looks better without it:
+\journal{Journal of Finance}
 
  \def\tightlist{} % This allows for subbullets!
 
@@ -156,7 +157,7 @@
 
 \begin{frontmatter}  %
 
-\title{Question 2}
+\title{Question 4}
 
 % Set to FALSE if wanting to remove title (for submission)
 
@@ -180,13 +181,11 @@
 
 \begin{abstract}
 \small{
-The music industry has experienced profound changes over the last two
-decades with the emergence of music streaming services, fundamentally
-altering its business landscape. This study investigates the impact of
-these transformations on renowned bands such as Metallica and Coldplay.
-Utilizing a Spotify dataset, I analyze their song metrics and compare
-their performance dynamics with those of other artists, aiming to
-discern trends and adaptations amidst this evolving industry landscape.
+This readme explores India's historical performance in the Summer
+Olympics compared to similarly sized economies, and emerging markets,
+alongside analyses of dominant countries across both Summer and Winter
+Games. It also delves into nations that exceed expectations in medal
+counts relative to their size and resources.
 }
 \end{abstract}
 
@@ -229,72 +228,82 @@ discern trends and adaptations amidst this evolving industry landscape.
 \section{\texorpdfstring{Introduction
 \label{Introduction}}{Introduction }}\label{introduction}}
 
-The music industry has undergone significant transformations over the
-past two decades since the advent of music streaming services, reshaping
-its entire business model. To examine whether these changes have
-impacted established bands like Metallica and Coldplay, I will analyze
-their songs in relation to a Spotify dataset and compare their
-performance with that of other artists.
+This readme delves into India's performance in the Summer Olympics
+relative to similarly sized economies, emerging markets, and select
+South American nations. It also provides analyses of dominant countries
+across both Summer and Winter Games, and explores which nations
+consistently exceed expectations in medal counts relative to their size
+and resources. Additionally, personal insights are offered on a favorite
+Olympic event, with analyses of historical winners and participating
+countries.
 
-While the dataset primarily comprises song data, one hypothesis to
-explore is the perfect correlation between a song's success and the
-album's popularity. If validated, focusing on album-level analysis could
-greatly streamline data processing. The following box plot illustrates
-the popularity distribution of songs per album.
-
-\begin{figure}[H]
-
-{\centering \includegraphics{Question2_files/figure-latex/Figure 1-1} 
-
-}
-
-\caption{Box Plot Popularity per Album \label{Figure1}}\label{fig:Figure 1}
-\end{figure}
-
-The popularity of songs per album shows considerable variability,
-indicating that analyzing at the album level may not yield conclusive
-insights.
-
-Both bands have extensive histories, but it's intriguing to assess their
-current activity. The following plot illustrates the number of song
-releases per band over time.
+To start, I will plot India's medal count compared to other emerging
+markets. Despite its large size, high absolute GDP, and substantial
+population, India's prerequisites for achieving success in this context
+should be favorable.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{Question2_files/figure-latex/Figure 2-1} 
+{\centering \includegraphics{Question4_files/figure-latex/Figure 1-1} 
 
 }
 
-\caption{Releases over Time \label{Figure1}}\label{fig:Figure 2}
+\caption{Medals won by India compared to other ermeging economies}\label{fig:Figure 1}
 \end{figure}
 
-The plot highlights two key observations. Firstly, Metallica's data is
-missing pre-2000, limiting comparisons to the period post-2000.
-Secondly, it reveals that since 2000, Coldplay has consistently released
-songs more regularly than Metallica.
+This initial visualization reveals that India has won very few medals
+compared to its emerging economies competitors.
 
-In recent years, a hypothesis has emerged that songs have become shorter
-for two reasons. Firstly, algorithms purportedly favor shorter songs,
-and secondly, the rise of social media values brief, impactful segments
-for video content. To test this theory and its applicability to Coldplay
-and Metallica, I will plot the song durations below.
+Smaller economies may excel in the Olympics due to their higher
+concentration of resources per capita. To investigate this, I will plot
+medal counts relative to population size.
 
 \begin{figure}[H]
 
-{\centering \includegraphics{Question2_files/figure-latex/Figure 3-1} 
+{\centering \includegraphics{Question4_files/figure-latex/Figure 2-1} 
 
 }
 
-\caption{Song Duration over Time \label{Figure1}}\label{fig:Figure 3}
+\caption{Models for countries with high population}\label{fig:Figure 2}
 \end{figure}
 
-It is evident that since the 1990s, there has been a noticeable downward
-trend in the average song length across all Spotify songs. Although the
-sample size is limited, Metallica shows a slight decreasing trend in
-song duration. Conversely, Coldplay exhibits a clear upward trend in
-song duration over the same period.
+I will now conduct a comparative analysis between the Winter and Summer
+Olympics, examining overall performance across all countries and all
+years.
 
-\newpage
+Lets investigate the most successful countries in the Summer Olympics
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Question4_files/figure-latex/Figure 3-1} 
+
+}
+
+\caption{Top Countries Summer Olympics}\label{fig:Figure 3}
+\end{figure}
+
+To determine if a country exceeds its expected performance in the
+Olympics, two key factors come into play: financial investment in
+training Olympic athletes, which is costly, and population size, as
+larger populations generally enhance the likelihood of success.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Question4_files/figure-latex/Figure 4-1} 
+
+}
+
+\caption{Medals per Income per GDP}\label{fig:Figure 4}
+\end{figure}
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Question4_files/figure-latex/Figure 5-1} 
+
+}
+
+\caption{Medals per Population}\label{fig:Figure 5}
+\end{figure}
 
 \bibliography{Tex/ref}
 

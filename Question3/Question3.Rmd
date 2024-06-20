@@ -85,7 +85,7 @@ output:
     fig_width: 3.5 # Adjust default figure sizes. This can also be done in the chunks of the text.
     fig_height: 3.5
 abstract: |
-  I will analyze the financial support of Ukraine by different countries and will also consider if a country is a EU member state or not
+ In this project, I will conduct a comprehensive analysis to evaluate the extent of support extended by various countries to Ukraine. Specifically, I will explore how countries' donation behaviors diverge depending on their membership status within the European Union (EU).
 ---
 
 <!-- First: Set your default preferences for chunk options: -->
@@ -111,31 +111,35 @@ commit_clean <- commit %>% filter(!grepl("EU", Country))
 
 # Introduction \label{Introduction}
 
-Big war
 <!-- The following is a code chunk. It must have its own unique name (after the r), or no name. After the comma follows commands for R which are self-explanatory. By default, the code and messages will not be printed in your pdf, just the output: -->
 
-basic statistics
+To start, I will perform two regression analyses: one on allocation and another on commitment, aiming to explore how these variables are influenced by a country's EU membership status.
 
-```{r Popularity by album,  warning =  FALSE, fig.align = 'center', fig.cap = "Caption Here \\label{Figure1}", fig.ext = 'png', fig.height = 3, fig.width = 6}
+```{r Regression 1,  warning =  FALSE, fig.align = 'center', fig.cap = "Allocation \\label{Figure1}", fig.ext = 'png', fig.height = 3, fig.width = 6, dpi=300}
 
-summary(alloc$Total.bilateral.allocations...billion.)
 summary(lm(alloc$Total.bilateral.allocations...billion.~alloc$EU.member))
+
+```
+
+
+```{r Regression 2,  warning =  FALSE, fig.align = 'center', fig.cap = "Commitment \\label{Figure1}", fig.ext = 'png', fig.height = 3, fig.width = 6, dpi=300}
+
 summary(lm(commit$Total.bilateral.commitments...billion.~commit$EU.member))
 
 ```
-lorem ipso,
 
-plot largest contributors and show their status as EU member
+The regression results indicate a significant decrease in both allocated and committed amounts when a country is an EU member. To explore potential reasons for this finding, the next step involves plotting data for the top donors.
 
 
-```{r Figure2, warning =  FALSE, fig.align = 'center', fig.cap = "Caption Here \\label{Figure2}", fig.height = 3, fig.width = 6, dev = 'png'}
+
+```{r Figure 1,  warning =  FALSE, fig.align = 'center', fig.cap = "Largest contributors \\label{Figure1}", fig.ext = 'png', fig.height = 3, fig.width = 6, dpi=300}
 
 plot_largest_contributors(commit_clean)
 
+
 ```
 
-See that biggest donors are non eu members
-
+The analysis reveals that the largest contributors by far are the USA and UK, both of which are non-EU members. This contrasts with the EU, which comprises many smaller countries, each unable to contribute substantial amounts individually. Consequently, being part of the EU appears to decrease the total amount given to Ukraine.
 <!-- :::::: {.columns data-latex="[T]"} -->
 <!-- ::: {.column data-latex="{0.7\textwidth}"} -->
 <!-- ```{r, echo=FALSE, fig.width=4, fig.height=4} -->
@@ -161,32 +165,6 @@ See that biggest donors are non eu members
 
 
 
-#  Change of song duration \label{Meth}
-
-In recent years the hypothesis was set up that songs becam shorter over time for two reaosns. The first one to be preferred by different algorithms which are apparently supposed to prefer short songs and the other reason is the rise of social media, where long songs are not important either but only a few good seconds are important to put them under a video. TO test if that is true and also if this applies to Coldplay and Metallica this will be plotted below.
-
-```{r Figure3, warning =  FALSE, fig.align = 'center', fig.cap = "Caption Here \\label{Figure3}", fig.height = 3, fig.width = 6, dev = 'png'}
-plot_song_durations(charts, spotify_info, coldplay_cleaned, metallica_cleaned)
-
-```
-
-We can see that since the 1990s across all spotify songs there is a clear downwards trend for the average song length, although the sample size is small, metallica seems to have a slightly decreasing trend too. Coldplay on the other hand has a clear upwards trend for the song duration
-
 <!-- Make title of bibliography here: -->
 <!-- \newpage -->
-
-\newpage
-
-# References {-}
-
-<div id="refs"></div>
-
-
-# Appendix {-}
-
-## Appendix A {-}
-
-Some appendix information here
-
-## Appendix B {-}
 
