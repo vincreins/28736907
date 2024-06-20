@@ -93,7 +93,7 @@ The unique_songs function processes a dataset of songs (data), filtering out ent
 
 The studio_recording function filters out entries containing the term "live".
 
-The live_recording function only shows entries containing the term "live.
+The live_recording function only shows entries containing the term "live".
 
 ```{r}
 coldplay_cleaned <- unique_songs(coldplay)
