@@ -1,0 +1,319 @@
+\documentclass[11pt,preprint, authoryear]{elsarticle}
+
+\usepackage{lmodern}
+%%%% My spacing
+\usepackage{setspace}
+\setstretch{1.2}
+\DeclareMathSizes{12}{14}{10}{10}
+
+% Wrap around which gives all figures included the [H] command, or places it "here". This can be tedious to code in Rmarkdown.
+\usepackage{float}
+\let\origfigure\figure
+\let\endorigfigure\endfigure
+\renewenvironment{figure}[1][2] {
+    \expandafter\origfigure\expandafter[H]
+} {
+    \endorigfigure
+}
+
+\let\origtable\table
+\let\endorigtable\endtable
+\renewenvironment{table}[1][2] {
+    \expandafter\origtable\expandafter[H]
+} {
+    \endorigtable
+}
+
+
+\usepackage{ifxetex,ifluatex}
+\usepackage{fixltx2e} % provides \textsubscript
+\ifnum 0\ifxetex 1\fi\ifluatex 1\fi=0 % if pdftex
+  \usepackage[T1]{fontenc}
+  \usepackage[utf8]{inputenc}
+\else % if luatex or xelatex
+  \ifxetex
+    \usepackage{mathspec}
+    \usepackage{xltxtra,xunicode}
+  \else
+    \usepackage{fontspec}
+  \fi
+  \defaultfontfeatures{Mapping=tex-text,Scale=MatchLowercase}
+  \newcommand{\euro}{€}
+\fi
+
+\usepackage{amssymb, amsmath, amsthm, amsfonts}
+
+\def\bibsection{\section*{References}} %%% Make "References" appear before bibliography
+
+
+\usepackage[round]{natbib}
+
+\usepackage{longtable}
+\usepackage[margin=2.3cm,bottom=2cm,top=2.5cm, includefoot]{geometry}
+\usepackage{fancyhdr}
+\usepackage[bottom, hang, flushmargin]{footmisc}
+\usepackage{graphicx}
+\numberwithin{equation}{section}
+\numberwithin{figure}{section}
+\numberwithin{table}{section}
+\setlength{\parindent}{0cm}
+\setlength{\parskip}{1.3ex plus 0.5ex minus 0.3ex}
+\usepackage{textcomp}
+\renewcommand{\headrulewidth}{0.2pt}
+\renewcommand{\footrulewidth}{0.3pt}
+
+\usepackage{array}
+\newcolumntype{x}[1]{>{\centering\arraybackslash\hspace{0pt}}p{#1}}
+
+%%%%  Remove the "preprint submitted to" part. Don't worry about this either, it just looks better without it:
+\journal{Journal of Finance}
+
+ \def\tightlist{} % This allows for subbullets!
+
+\usepackage{hyperref}
+\hypersetup{breaklinks=true,
+            bookmarks=true,
+            colorlinks=true,
+            citecolor=blue,
+            urlcolor=blue,
+            linkcolor=blue,
+            pdfborder={0 0 0}}
+
+
+% The following packages allow huxtable to work:
+\usepackage{siunitx}
+\usepackage{multirow}
+\usepackage{hhline}
+\usepackage{calc}
+\usepackage{tabularx}
+\usepackage{booktabs}
+\usepackage{caption}
+
+
+\newenvironment{columns}[1][]{}{}
+
+\newenvironment{column}[1]{\begin{minipage}{#1}\ignorespaces}{%
+\end{minipage}
+\ifhmode\unskip\fi
+\aftergroup\useignorespacesandallpars}
+
+\def\useignorespacesandallpars#1\ignorespaces\fi{%
+#1\fi\ignorespacesandallpars}
+
+\makeatletter
+\def\ignorespacesandallpars{%
+  \@ifnextchar\par
+    {\expandafter\ignorespacesandallpars\@gobble}%
+    {}%
+}
+\makeatother
+
+\newenvironment{CSLReferences}[2]{%
+}
+
+\urlstyle{same}  % don't use monospace font for urls
+\setlength{\parindent}{0pt}
+\setlength{\parskip}{6pt plus 2pt minus 1pt}
+\setlength{\emergencystretch}{3em}  % prevent overfull lines
+\setcounter{secnumdepth}{5}
+
+%%% Use protect on footnotes to avoid problems with footnotes in titles
+\let\rmarkdownfootnote\footnote%
+\def\footnote{\protect\rmarkdownfootnote}
+\IfFileExists{upquote.sty}{\usepackage{upquote}}{}
+
+%%% Include extra packages specified by user
+
+%%% Hard setting column skips for reports - this ensures greater consistency and control over the length settings in the document.
+%% page layout
+%% paragraphs
+\setlength{\baselineskip}{12pt plus 0pt minus 0pt}
+\setlength{\parskip}{12pt plus 0pt minus 0pt}
+\setlength{\parindent}{0pt plus 0pt minus 0pt}
+%% floats
+\setlength{\floatsep}{12pt plus 0 pt minus 0pt}
+\setlength{\textfloatsep}{20pt plus 0pt minus 0pt}
+\setlength{\intextsep}{14pt plus 0pt minus 0pt}
+\setlength{\dbltextfloatsep}{20pt plus 0pt minus 0pt}
+\setlength{\dblfloatsep}{14pt plus 0pt minus 0pt}
+%% maths
+\setlength{\abovedisplayskip}{12pt plus 0pt minus 0pt}
+\setlength{\belowdisplayskip}{12pt plus 0pt minus 0pt}
+%% lists
+\setlength{\topsep}{10pt plus 0pt minus 0pt}
+\setlength{\partopsep}{3pt plus 0pt minus 0pt}
+\setlength{\itemsep}{5pt plus 0pt minus 0pt}
+\setlength{\labelsep}{8mm plus 0mm minus 0mm}
+\setlength{\parsep}{\the\parskip}
+\setlength{\listparindent}{\the\parindent}
+%% verbatim
+\setlength{\fboxsep}{5pt plus 0pt minus 0pt}
+
+
+
+\begin{document}
+
+
+
+\begin{frontmatter}  %
+
+\title{Question 5}
+
+% Set to FALSE if wanting to remove title (for submission)
+
+
+
+
+\author[Add1]{Vincent Reinshagen\footnote{\textbf{Contributions:}
+  \newline \emph{The authors would like to thank no institution for
+  money donated to this project. Thank you sincerely.}}}
+\ead{vreinshagen@outlook.de}
+
+
+
+
+
+\address[Add1]{Stellenbosch University, Stellenbosch, South Africa}
+
+\cortext[cor]{Corresponding author: Vincent Reinshagen\footnote{\textbf{Contributions:}
+  \newline \emph{The authors would like to thank no institution for
+  money donated to this project. Thank you sincerely.}}}
+
+\begin{abstract}
+\small{
+In this project, I will analyze the inflationary impact on the
+quintessential South African braaibroodjie over a three-year period,
+using data from Stats SA and daily scraped prices from a major retailer.
+By constructing a Braaibroodjie index and visualizing price trends of
+its key ingredients, I will create clear and compelling visualizations
+to effectively communicate the inflation trends to a non-technical
+audience, while also providing a detailed technical comparison between
+the Braaibroodjie index and the official SA Inflation index for
+potential publication by Stats SA.
+}
+\end{abstract}
+
+\vspace{1cm}
+
+
+
+
+
+\vspace{0.5cm}
+
+\end{frontmatter}
+
+\setcounter{footnote}{0}
+
+
+
+%________________________
+% Header and Footers
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+\pagestyle{fancy}
+\chead{}
+\rhead{}
+\lfoot{}
+\rfoot{\footnotesize Page \thepage}
+\lhead{}
+%\rfoot{\footnotesize Page \thepage } % "e.g. Page 2"
+\cfoot{}
+
+%\setlength\headheight{30pt}
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+%________________________
+
+\headsep 35pt % So that header does not go over title
+
+
+
+
+\hypertarget{introduction}{%
+\section{\texorpdfstring{Introduction
+\label{Introduction}}{Introduction }}\label{introduction}}
+
+In this project, I will analyze the inflationary impact on the
+quintessential South African braaibroodjie over a three-year period.
+Utilizing detailed data from Stats SA and daily scraped prices from a
+major retailer, I will construct a Braaibroodjie index that tracks the
+price changes of essential ingredients: white bread, cheddar, margarine,
+tomatoes, onions, salt, and chutney. The goal is to create clear and
+compelling visualizations that make inflation trends easily
+understandable for a non-technical audience. Key graphs and tables will
+illustrate time-series trends, individual ingredient indexes, and
+rolling correlations.
+
+Additionally, I will provide a comprehensive technical analysis
+comparing the Braaibroodjie index with the official SA Inflation index.
+This includes summarizing the data, highlighting discrepancies, and
+demonstrating the reliability and relevance of the constructed index.
+The findings will be presented concisely to ensure clarity and impact,
+with the aim of convincing Stats SA to publish the Braaibroodjie index.
+The visualizations will be meticulously crafted to be both informative
+and engaging for the upcoming segment on eNCA, where I will share these
+insights with viewers.
+
+To begin, I will create a plot to visualize the price changes for each
+braaibroodjie ingredient over the three-year period. This initial
+visualization will highlight the individual trends and inflationary
+impacts on white bread, cheddar, margarine, tomatoes, onions, salt, and
+chutney, providing a clear overview of how each product's price has
+evolved.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Question5_files/figure-latex/Figure 1-1} 
+
+}
+
+\caption{Price changes of braaibroodje ingredients over time \label{Figure1}}\label{fig:Figure 1}
+\end{figure}
+
+This initial visualization reveals that all these prices have increased
+over time.
+
+Next, I will analyze how the overall price of a complete braaibroodjie
+has changed over time. This will involve aggregating the prices of all
+the ingredients to understand the cumulative inflationary impact,
+revealing that a braaibroodjie would cost 100 rand more today than it
+did four years ago.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Question5_files/figure-latex/Figure 2-1} 
+
+}
+
+\caption{Cost of producing a Braaibroodje over time \label{Figure1}}\label{fig:Figure 2}
+\end{figure}
+
+The braaibroodje index in the context of general consumer price trends
+\label{Meth}
+
+I will then compare my Braaibroodjie index to the official CPI index.
+This comparison will help contextualize the specific inflationary impact
+on the braaibroodjie within the broader framework of general consumer
+price trends in South Africa.
+
+\begin{figure}[H]
+
+{\centering \includegraphics{Question5_files/figure-latex/Figure 3-1} 
+
+}
+
+\caption{Accuracy of the braaibrodje index \label{Figure1}}\label{fig:Figure 3}
+\end{figure}
+
+The results show that while the changes in the CPI and the Braaibroodjie
+index are similar, the price fluctuations are more extreme for the
+Braaibroodjie. This indicates that the specific ingredients of the
+braaibroodjie have experienced greater volatility compared to the
+overall basket of goods measured by the CPI.
+
+\bibliography{Tex/ref}
+
+
+
+
+
+\end{document}
