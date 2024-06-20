@@ -1,15 +1,7 @@
 ---
-title : "README
+title: "README"
 output: github_document
 ---
-
-# Purpose
-
-Purpose of this work folder.
-
-Ideally store a minimum working example data set in data folder.
-
-Add binary files in bin, and closed R functions in code. Human Readable settings files (e.g. csv) should be placed in settings/
 
 
 ```{r}
@@ -22,7 +14,7 @@ library(tidyverse)
 rm(list = ls()) # Clean your environment:
 gc() # garbage collection - It can be useful to call gc after a large object has been removed, as this may prompt R to return memory to the operating system.
 library(tidyverse)
-list.files('Question 2/code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))
+list.files('/code/', full.names = T, recursive = T) %>% .[grepl('.R', .)] %>% as.list() %>% walk(~source(.))
 ```
 
 
@@ -40,7 +32,8 @@ Question 1:
 
 Babynames
 
-load data
+Load data sets
+
 ```{r}
 baby_names <- readRDS("Question1/data/US_Baby_names/Baby_Names_By_US_State.rds")
 charts <- read.csv("Question1/data/US_Baby_names/charts.csv")
@@ -87,7 +80,7 @@ movie_appearance_change(baby_25, HBO_Credits, HBO_Titles)
 
 Question 2:
 
-Load data 
+Load data sets
 
 ```{r}
 coldplay <- read.csv("Question2/data/Coldplay_vs_Metallica/metallica.csv", encoding = "latin1")
@@ -113,15 +106,16 @@ coldplay_live <- live_recording(coldplay)
 metallica_live <- live_recording(metallica)
 ```
 
-
-plot popularity by album
+While the dataset primarily comprises song data, one hypothesis to explore is the perfect correlation between a song’s success and the album’s popularity. If validated, focusing on album-level analysis could greatly streamline data processing. The following box plot illustrates the popularity distribution of songs per album.
 
 ```{r}
 
 plot_popularity_distribution(coldplay_cleaned)
 ```
 
-This function combines data from Coldplay and Metallica, adds an identifier column to distinguish between them, merges the datasets, and then groups and summarizes the number of releases by release date and band.
+This function combines data from Coldplay and Metallica, adds an identifier column to distinguish between them, merges the data sets, and then groups and summarizes the number of releases by release date and band.
+
+Both bands have extensive histories, but it’s intriguing to assess their current activity. The following plot illustrates the number of song releases per band over time.
 
 ```{r}
 
@@ -130,19 +124,13 @@ releases <- calculate_num_releases(coldplay_cleaned, metallica_cleaned)
 plot_releases_over_time(releases)
 ```
 
-
-Investigate if song duration decreased over time because of streaming services, if this trend can be found with metallica and coldplay
-
-
-
-
 This function merges charts and spotify_info datasets on song names, ensures unique entries by song, and assigns the result to charts_spotify. It then calculates the mean song duration per year and assigns this summary to charts_duration.
 
 ```{r}
 create_charts_data(charts, spotify_info)
 ```
 
-
+In recent years, a hypothesis has emerged that songs have become shorter for two reasons. Firstly, algorithms purportedly favor shorter songs, and secondly, the rise of social media values brief, impactful segments for video content. To test this theory and its applicability to Coldplay and Metallica, I will plot the song durations below.
 
 ```{r}
 plot_duration_over_time(charts_spotify, coldplay_cleaned, metallica_cleaned)
@@ -158,7 +146,7 @@ commit <- read.csv("Question3/data/Ukraine_Aid/Financial Commitments.csv")
 commit_clean <- commit %>% filter(!grepl("EU", Country))
 ```
 
-Some basic statistics which show the effect on the allocation/commitment of being a EU member state
+Here are some basic statistics that illustrate the impact of EU membership on allocation and commitment levels.
 
 ```{r}
 
@@ -179,7 +167,7 @@ plot_largest_contributors(commit_clean)
 
 Question 4
 
-load data
+Load data sets
 
 ```{r}
 winter <- readRDS("Question4/data/olympics/winter.rds")
@@ -187,23 +175,19 @@ summer <- readRDS("Question4/data/olympics/summer.rds")
 gdp <- readRDS("Question4/data/olympics/GDP.rds")
 ```
 
-
-filter data
-
-If in one event more than one medal of each level is won by more than one person,
-we have to filter that person
+If multiple individuals win more than one medal of each level in a single event, we need to filter out those individuals from the dataset.
 
 ```{r}
 summer_cleaned <- clean_summer_data(summer, 2012)
 ```
 
-Count the medals per country
+Count the medals per country.
 
 ```{r}
 country_medals <- summarize_country_medals(summer_cleaned)
 ```
 
-Combine country medal data with country income and development data
+Combine country medal data with country income and development level.
 
 ```{r}
 gdp_medals <- merge(country_medals, gdp, by.x = "Country", by.y = "Code")
@@ -217,14 +201,16 @@ summarize_and_plot_medals(gdp_medals, 3000)
 
 ```
 
-Compared to country size
+Smaller economies may excel in the Olympics due to their higher concentration of resources per capita. To investigate this, I will plot medal counts relative to population size.
 
 ```{r}
 plot_top_countries_medals(gdp_medals, 25)
 ```
 
 
-Most dominant in Winter
+I will now conduct a comparative analysis between the Winter and Summer Olympics, examining overall performance across all countries and all years.
+
+Lets start with the winter olympics.
 
 ```{r}
     winter_medals <- winte %>%
@@ -243,12 +229,8 @@ Most dominant in Winter
         summarise(Medals = sum(n)) %>%
         ungroup()
 ```
-time series winter
 
-
-
-
-Most dominant in Summer
+Same analysis for the summer
 
 ```{r}
 summer_medals <- summer %>% group_by(Event, Gender, Medal, Discipline, Year) %>% 
@@ -262,7 +244,9 @@ summer_medals_total_year <- country_medals_summer %>% group_by(Country, Year) %>
 summer_medals_total <- country_medals_summer %>% group_by(Country) %>% 
     summarise(Medals = sum(n)) %>% ungroup()
 ```
-plot 
+
+Lets investigate the most successful countries in the Summer Olympics
+
 ```{r}
 summer_success <- summer_medals_total %>% arrange(desc(Medals)) %>% slice(1:10) %>% ungroup()
 plot_summer_success(summer_success)
@@ -274,17 +258,10 @@ time_series_winter <- merge(winter_medals_total, summer_success, by = "Country")
 
 plot_time_series_winter(time_series_winter)
 ```
-plot time series summer
-
-```{r}
-time_series_summer <- merge(summer_medals_total_year, summer_success, by = "Country")
-
-plot_time_series_summer(time_series_summer)
-```
 
 To determine if a country exceeds its expected performance in the Olympics, two key factors come into play: financial investment in training Olympic athletes, which is costly, and population size, as larger populations generally enhance the likelihood of success.
 
-Medals per capita
+Medals per GDP
 
 ```{r}
 gdp_medals$per_capita <- gdp_medals$n / gdp_medals$Population
@@ -298,6 +275,8 @@ per_gdp_success <- gdp_medals %>% arrange(desc(per_gdp)) %>% slice(1:10) %>% ung
 ```{r}
 plot_per_gdp_success(per_gdp_success)
 ```
+
+Plot of medals per Capita
 
 ```{r}
 plot_per_capita_success(per_capita_success)
@@ -320,13 +299,14 @@ statssa <- db_query("SELECT * FROM statssa;", db = "psql_datascience")
 cpi_sa <- read.csv("Question5/data/Excel - CPI (COICOP) from January 2008 (202405).csv")
 ```
 
-Plot the index data for each product
+Plot the index data for each product.
 
 ```{r}
 plot_ingredients(statssa)
 ```
 
-calculate average price of a bread and plot the average over time
+Calculate average price of a bread and plot the average over time.
+
 ```{r}
 index_braai_monthly <- calculate_average_index(ingredients)
 long_braai_df <- long_braai(retailer)
@@ -334,7 +314,7 @@ plot_braai_price(long_braai_df)
 
 ```
 
-monthly price
+Monthly average price of braaibroodje.
 
 ```{r}
 braai_percent_change <- month_month_percentage(sum_price)
@@ -345,6 +325,7 @@ filtered_cpi$V1 <- as.numeric(unlist(filtered_cpi$V1))
 cpi_perc <- sa_percentage_change(filtered_cpi, "V1")
 ```
 
+I will then compare my Braaibroodjie index to the official CPI index. This comparison will help contextualize the specific inflationary impact on the braaibroodjie within the broader framework of general consumer price trends in South Africa.
 
 ```{r}
 plot_braai_index_perc(index_braai_monthly, cpi_perc)

@@ -247,6 +247,14 @@ for Males and Females in each year.
 
 \begin{verbatim}
 ## 
+## 
+## |    | Correlation.Coefficient..rho.| p.value|
+## |:---|-----------------------------:|-------:|
+## |rho |                     0.9472603|       0|
+\end{verbatim}
+
+\begin{verbatim}
+## 
 ##  Spearman's rank correlation rho
 ## 
 ## data:  splitted_gender$M$Count and splitted_gender$F$Count
@@ -294,20 +302,20 @@ newborns
 \begin{verbatim}
 ## 
 ## Call:
-## lm(formula = change_in_count ~ in_movie, data = Popular_Names_with_following_year)
+## lm(formula = relative_change ~ in_movie, data = Popular_Names_with_following_year)
 ## 
 ## Residuals:
 ##    Min     1Q Median     3Q    Max 
-## -11017   -842    -44    492  46928 
+## -31.57  -5.50  -1.37   1.86 392.47 
 ## 
 ## Coefficients:
 ##             Estimate Std. Error t value Pr(>|t|)
-## (Intercept)   -53.99     239.95  -0.225    0.822
-## in_movie       97.98     241.40   0.406    0.685
+## (Intercept)   0.3382     1.4831   0.228    0.820
+## in_movie      1.0357     1.4921   0.694    0.488
 ## 
-## Residual standard error: 2064 on 6195 degrees of freedom
-## Multiple R-squared:  2.659e-05,  Adjusted R-squared:  -0.0001348 
-## F-statistic: 0.1647 on 1 and 6195 DF,  p-value: 0.6848
+## Residual standard error: 12.76 on 6195 degrees of freedom
+## Multiple R-squared:  7.777e-05,  Adjusted R-squared:  -8.364e-05 
+## F-statistic: 0.4818 on 1 and 6195 DF,  p-value: 0.4876
 \end{verbatim}
 
 \begin{figure}[H]
@@ -320,28 +328,6 @@ newborns
 \end{figure}
 
 \newpage
-
-\hypertarget{references}{%
-\section*{References}\label{references}}
-\addcontentsline{toc}{section}{References}
-
-\hypertarget{refs}{}
-\begin{CSLReferences}{0}{0}
-\end{CSLReferences}
-
-\hypertarget{appendix}{%
-\section*{Appendix}\label{appendix}}
-\addcontentsline{toc}{section}{Appendix}
-
-\hypertarget{appendix-a}{%
-\subsection*{Appendix A}\label{appendix-a}}
-\addcontentsline{toc}{subsection}{Appendix A}
-
-Some appendix information here
-
-\hypertarget{appendix-b}{%
-\subsection*{Appendix B}\label{appendix-b}}
-\addcontentsline{toc}{subsection}{Appendix B}
 
 \bibliography{Tex/ref}
 

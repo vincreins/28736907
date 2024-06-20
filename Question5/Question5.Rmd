@@ -99,9 +99,16 @@ if(!require("tidyverse")) install.packages("tidyverse")
 library(tidyverse)
 list.files('code/', full.names = T, recursive = T) %>% as.list() %>% walk(~source(.))
 
-load(file = "statssa.Rdata")
-load(file = "retailer.Rdata")
-cpi_sa <- read.csv("data/Excel - CPI (COICOP) from January 2008 (202405).csv")
+conn <- db_connect(db = "psql_datascience")
+tables <- dbListTables(conn)
+str(tables)
+retailer <- db_query("SELECT * FROM retailer;", db = "psql_datascience")
+statssa <- db_query("SELECT * FROM statssa;", db = "psql_datascience")
+cpi_sa <- read.csv("Question5/data/Excel - CPI (COICOP) from January 2008 (202405).csv")
+
+#load(file = "statssa.Rdata")
+#load(file = "retailer.Rdata")
+#cpi_sa <- read.csv("data/Excel - CPI (COICOP) from January 2008 (202405).csv")
 ```
 
 

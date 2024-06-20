@@ -67,7 +67,7 @@ csl: Tex/harvard-stellenbosch-university.csl # referencing format used.
 
 # ---------- General:
 RemovePreprintSubmittedTo: FALSE  # Removes the 'preprint submitted to...' at bottom of titlepage
-Journal: "Journal of Finance"   # Journal that the paper will be submitting to, if RemovePreprintSubmittedTo is set to TRUE.
+Journal: ""   # Journal that the paper will be submitting to, if RemovePreprintSubmittedTo is set to TRUE.
 toc: FALSE                       # Add a table of contents
 numbersections: TRUE             # Should sections (and thus figures and tables) be numbered?
 fontsize: 11pt                  # Set fontsize
@@ -169,7 +169,7 @@ We will start to invetigate the effect of movies on the names given to newborns
 
 ```{r Figure3, warning =  FALSE, fig.align = 'center', fig.cap = "Caption Here \\label{Figure3}", fig.height = 3, fig.width = 6, dev = 'png'}
 HBO_Credits <- extract_first_name(HBO_Credits, "name")
-movie_appearance_change(baby_25)
+movie_appearance_change(baby_25, HBO_Credits, HBO_Titles)
 
 ```
 
@@ -177,17 +177,4 @@ movie_appearance_change(baby_25)
 <!-- \newpage -->
 
 \newpage
-
-# References {-}
-
-<div id="refs"></div>
-
-
-# Appendix {-}
-
-## Appendix A {-}
-
-Some appendix information here
-
-## Appendix B {-}
 
